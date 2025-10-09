@@ -6,7 +6,7 @@
 /*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:17:52 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/08 16:47:24 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/09 13:59:20 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@ char	**copy_map(t_map *map)
 	return (copy);
 }
 
-void	find_player(t_map *map, char **copy)
+t_player	*find_player(t_map *map, char **copy)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	t_player	*player;
 
+	player = malloc(sizeof(t_player));
 	x = 0;
 	while (x < map->height)
 	{
@@ -66,13 +68,15 @@ void	find_player(t_map *map, char **copy)
 		{
 			if (copy[x][y] == 'P')
 			{
-				flood_fill(copy, x, y);
-				break ;
+				player->x = x;
+				player->y = y;
+				return (player);
 			}
 			y++;
 		}
 		x++;
 	}
+	return (player);
 }
 
 int	check_reacheable(t_map *map)
@@ -84,7 +88,7 @@ int	check_reacheable(t_map *map)
 
 	copy = copy_map(map);
 	valid = 1;
-	find_player(map, copy);
+	flood_fill(copy, find_player(map, copy)->x, find_player(map, copy)->y);
 	x = 0;
 	while (x < map->height)
 	{

@@ -6,7 +6,7 @@
 /*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:01:58 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/08 15:59:43 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/09 15:44:58 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ t_map	*init_map(char **map)
 	tmap->cnt_p = 0;
 	tmap->height = 0;
 	tmap->length = 0;
+	tmap->player_in_exit = 0;
+	tmap->collectibes_collected = 0;
+	tmap->cont_moves = 0;
 	return (tmap);
 }
 
