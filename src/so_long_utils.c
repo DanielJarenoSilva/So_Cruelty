@@ -6,7 +6,7 @@
 /*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:17:52 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/09 15:47:49 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/14 14:03:24 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_player	*find_player(t_map *map, char **copy)
 	int			y;
 	t_player	*player;
 
-	player = malloc(sizeof(t_player));
 	x = 0;
 	while (x < map->height)
 	{
@@ -68,6 +67,7 @@ t_player	*find_player(t_map *map, char **copy)
 		{
 			if (copy[x][y] == 'P')
 			{
+				player = malloc(sizeof(t_player));
 				player->x = x;
 				player->y = y;
 				return (player);
@@ -76,19 +76,14 @@ t_player	*find_player(t_map *map, char **copy)
 		}
 		x++;
 	}
-	return (player);
+	return (NULL);
 }
 
-int	check_reacheable(t_map *map)
+int	is_valid(t_map *map, int valid, char **copy)
 {
-	int		x;
-	int		y;
-	char	**copy;
-	int		valid;
+	int	x;
+	int	y;
 
-	copy = copy_map(map);
-	valid = 1;
-	flood_fill(copy, find_player(map, copy)->x, find_player(map, copy)->y);
 	x = 0;
 	while (x < map->height)
 	{
@@ -98,12 +93,31 @@ int	check_reacheable(t_map *map)
 			if (copy[x][y] == 'C' || copy[x][y] == 'E')
 			{
 				valid = -1;
-				break ;
+				return (valid);
 			}
 			y++;
 		}
 		x++;
 	}
+	return (valid);
+}
+
+int	check_reacheable(t_map *map)
+{
+	char		**copy;
+	int			valid;
+	t_player	*player;
+
+	copy = NULL;
+	player = find_player(map, copy);
+	if (!player)
+		return (-1);
+	
+	copy = copy_map(map);
+	valid = 1;
+	flood_fill(copy, player->x, player->y);
+	valid = is_valid(map, valid, copy);
+	free (player);
 	ft_free_matrix(copy);
 	return (valid);
 }

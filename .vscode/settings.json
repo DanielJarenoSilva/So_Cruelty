@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "string_view": "c",
+        "random": "c",
+        "so_long.h": "c"
+    }
+}

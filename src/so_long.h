@@ -6,7 +6,7 @@
 /*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 10:41:31 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/09 15:44:28 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/14 11:52:16 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct player
 typedef struct game
 {
 	t_map			*map;
-	t_textures		*textures;
+	t_textures		*txt;
 	mlx_t			*mlx;
 }					t_game;
 char		**read_map(char	*map);
@@ -53,4 +53,8 @@ t_map		*init_map(char **map);
 int			check_size(t_map *map);
 int			check_reacheable(t_map *map);
 t_player	*find_player(t_map *map, char **copy);
+void		frame_funcs_wrapper(void *param);
+void		frame_funcs(t_map *map, t_textures *textures, mlx_t *mlx);
+void		key_hook_moves(mlx_key_data_t keydata, t_game *game);
+void		set_textures(t_textures *textures, mlx_t *mlx);
 #endif
