@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:16:04 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/14 12:02:24 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/14 15:13:55 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	print_player(t_game *game)
 
 	p = find_player(game->map, game->map->map);
 	mlx_image_to_window(game->mlx, game->txt->img_player, p->y * 64, p->x * 64);
+	free (p);
 }
 
 void	key_hook_moves(mlx_key_data_t keydata, t_game *game)

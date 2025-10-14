@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:01:58 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/09 15:44:58 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/14 15:02:23 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ t_map	*init_map(char **map)
 int	check_size(t_map *map)
 {
 	int		i;
-	int		y;
 	int		size;
 
 	i = 1;
-	y = 0;
 	size = ft_strlen(map->map[0]);
 	while (map->map[i])
 	{

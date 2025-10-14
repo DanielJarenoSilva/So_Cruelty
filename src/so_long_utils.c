@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:17:52 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/14 14:03:24 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/14 15:04:59 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	**copy_map(t_map *map)
 	copy = malloc(sizeof(char *) * (map->height + 1));
 	if (!copy)
 		return (NULL);
-
 	while (i < map->height)
 	{
 		copy[i] = ft_strdup(map->map[i]);
@@ -109,11 +108,10 @@ int	check_reacheable(t_map *map)
 	t_player	*player;
 
 	copy = NULL;
+	copy = copy_map(map);
 	player = find_player(map, copy);
 	if (!player)
 		return (-1);
-	
-	copy = copy_map(map);
 	valid = 1;
 	flood_fill(copy, player->x, player->y);
 	valid = is_valid(map, valid, copy);
