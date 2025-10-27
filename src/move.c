@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:16:04 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/14 15:13:55 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/21 10:39:20 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ void	move_exit(t_game *game, int mx, int my, t_player *p)
 	mlx_image_to_window(game->mlx, game->txt->img_floor, p->y * 64, p->x * 64);
 	if (game->map->collectibes_collected == game->map->cnt_c)
 		mlx_close_window(game->mlx);
+}
+
+void	print_player(t_game *game, mlx_image_t *img)
+{
+	t_player	*p;
+
+	p = find_player(game->map, game->map->map);
+	mlx_image_to_window(game->mlx, img, p->y * 64, p->x * 64);
+	free (p);
 }
 
 void	move_collectible(t_game *g, int mx, int my, t_player *p)
@@ -61,15 +70,7 @@ void	move(t_game *g, int mx, int my)
 	g->map->player_in_exit = 0;
 	if (g->map->map[p->x + mx][p->y + my] == 'E')
 		move_exit(g, mx, my, p);
-	free (p);
-}
-
-void	print_player(t_game *game)
-{
-	t_player	*p;
-
-	p = find_player(game->map, game->map->map);
-	mlx_image_to_window(game->mlx, game->txt->img_player, p->y * 64, p->x * 64);
+	gotham_asyllum(g, p->x + mx, p->y + my);
 	free (p);
 }
 
@@ -79,24 +80,20 @@ void	key_hook_moves(mlx_key_data_t keydata, t_game *game)
 	{
 		move(game, -1, 0);
 		ft_printf("%d\n", game->map->cont_moves);
-		print_player(game);
 	}
 	else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
 	{
 		move(game, 1, 0);
 		ft_printf("%d\n", game->map->cont_moves);
-		print_player(game);
 	}
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 	{
 		move(game, 0, 1);
 		ft_printf("%d\n", game->map->cont_moves);
-		print_player(game);
 	}
 	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
 	{
 		move(game, 0, -1);
 		ft_printf("%d\n", game->map->cont_moves);
-		print_player(game);
 	}
 }

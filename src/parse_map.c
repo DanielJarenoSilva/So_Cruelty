@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 10:40:54 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/14 15:19:33 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/20 10:52:43 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	all_ones(t_map *map, int i, int y)
-{
-	y = 0;
-	while (map->map[i][y + 1])
-	{
-		if (map->map[i][y] != '1')
-			return (-1);
-		y++;
-	}
-	return (0);
-}
 
 int	check_walls(t_map *map)
 {
@@ -91,23 +79,41 @@ int	parse_map(t_map	*map)
 	return (0);
 }
 
+char	*rmap(int fd, char *str_map)
+{
+	char	*tmp;
+	char	*line;
+
+	line = get_next_line(fd);
+	str_map = ft_strdup("");
+	while (line != NULL)
+	{
+		tmp = ft_strjoin(str_map, " ");
+		free (str_map);
+		str_map = tmp;
+		tmp = ft_strjoin(str_map, line);
+		free (str_map);
+		str_map = tmp;
+		tmp = ft_strrmchar(str_map, '\n');
+		free (str_map);
+		str_map = tmp;
+		free (line);
+		line = get_next_line(fd);
+	}
+	return (str_map);
+}
+
 char	**read_map(char	*map)
 {
 	int		fd;
 	char	*str_map;
-	char	*line;
+	char	**smap;
 
-	str_map = "";
 	fd = open(map, O_RDONLY);
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		str_map = ft_strjoin(str_map, " ");
-		str_map = ft_strjoin(str_map, line);
-		str_map = ft_strrmchar(str_map, '\n');
-		free (line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (ft_split(str_map, ' '));
+	if (fd < 0)
+		return (NULL);
+	str_map = NULL;
+	str_map = rmap(fd, str_map);
+	smap = ft_split(str_map, ' ');
+	return (close(fd), free (str_map), smap);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:17:52 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/14 15:04:59 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/21 10:39:00 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ void	flood_fill(char **map, int x, int y)
 {
 	if (map[x][y] == '1' || map[x][y] == 'F')
 		return ;
-
 	if (map[x][y] == '0' || map[x][y] == 'C'
 		|| map[x][y] == 'E' || map[x][y] == 'P')
 		map[x][y] = 'F';
-
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);

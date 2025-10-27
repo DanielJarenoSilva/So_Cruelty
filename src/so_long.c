@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djareno <djareno@student.42.fr>            +#+  +:+       +#+        */
+/*   By: djareno <djareno@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:01:58 by djareno           #+#    #+#             */
-/*   Updated: 2025/10/14 15:02:23 by djareno          ###   ########.fr       */
+/*   Updated: 2025/10/21 10:46:12 by djareno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,32 @@ int	check_size(t_map *map)
 	}
 	map->length = size;
 	map->height = i;
+	return (0);
+}
+
+void	free_textures(mlx_t *mlx, t_textures *txt)
+{
+	mlx_delete_image(mlx, txt->img_wall);
+	mlx_delete_image(mlx, txt->img_col);
+	mlx_delete_image(mlx, txt->img_exit);
+	mlx_delete_image(mlx, txt->img_floor);
+	mlx_delete_image(mlx, txt->img_player);
+	mlx_delete_image(mlx, txt->img_infierno);
+	mlx_delete_image(mlx, txt->img_jorker);
+	mlx_delete_image(mlx, txt->img_crujiente);
+	mlx_delete_image(mlx, txt->img_musk);
+	mlx_delete_image(mlx, txt->img_umberto);
+	free (txt);
+}
+
+int	all_ones(t_map *map, int i, int y)
+{
+	y = 0;
+	while (map->map[i][y + 1])
+	{
+		if (map->map[i][y] != '1')
+			return (-1);
+		y++;
+	}
 	return (0);
 }

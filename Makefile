@@ -15,6 +15,7 @@ SRCS = src/main.c \
 		src/so_long_utils.c \
 		src/move.c \
 		src/textures.c \
+		src/nowitspersonal.c \
 
 OBJS_DIR = obj
 OBJS = $(SRCS:src/%.c=$(OBJS_DIR)/%.o)
